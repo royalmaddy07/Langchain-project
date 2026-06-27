@@ -3,6 +3,7 @@
 # step 1. to load enviroument variables -> 
 from dotenv import load_dotenv
 from chatbot import llm
+from prompts import programming_prompt
 
 load_dotenv()
 
@@ -10,7 +11,12 @@ load_dotenv()
 # this sends request via the internet to Google server -> Gemini -> sends back -> Response object
 # object : is not a string, rather an AIMessage object with its own methods and properties
 
-question = input("Ask: ")
-response = llm.invoke(question)
+question = input("Topic: ")
+prompt = programming_prompt.invoke({
+    "topic": question
+})
+# we send a dictionary of key-value pairs which convert to variables and there values
+
+response = llm.invoke(prompt)
 
 print(response.content)
